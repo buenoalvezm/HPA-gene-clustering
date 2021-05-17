@@ -1516,8 +1516,8 @@ dat %>%
            #show_rownames = F,
            border_color = NA, 
            fontsize = 8) 
-            
-  mutate(c(adiB:vp) = mean(c(adiB:vp)))
+
+mutate(c(adiB:vp) = mean(c(adiB:vp)))
 
 dat %>% 
   select(-value) %>% 
@@ -1534,21 +1534,21 @@ dat %>%
 
 pdf("heatmaps_zscore_person_medoids_70.pdf")
 heatmaps <- lapply(sort(unique(clustering$value)),
-         function(i) {
-           plot <- data_tissue %>%
-             left_join(clustering, by = c("enssscg_id" = "gene")) %>%
-            # mutate(value = value+1) %>%
-             filter(value == i) %>%
-             group_by(enssscg_id) %>%
-             mutate(scaled_value = tissue_exp / max(tissue_exp)) %>%
-             ungroup() %>%
-             select(enssscg_id,tissue,scaled_value) %>%
-             spread(key=tissue, value = scaled_value) %>%
-             column_to_rownames("enssscg_id") %>% 
-             pheatmap(clustering_method = "ward.D2", 
-                      color = viridis(20, direction = -1, option = "B"),
-                      show_rownames = F,border_color = NA, fontsize = 8)
-         })
+                   function(i) {
+                     plot <- data_tissue %>%
+                       left_join(clustering, by = c("enssscg_id" = "gene")) %>%
+                       # mutate(value = value+1) %>%
+                       filter(value == i) %>%
+                       group_by(enssscg_id) %>%
+                       mutate(scaled_value = tissue_exp / max(tissue_exp)) %>%
+                       ungroup() %>%
+                       select(enssscg_id,tissue,scaled_value) %>%
+                       spread(key=tissue, value = scaled_value) %>%
+                       column_to_rownames("enssscg_id") %>% 
+                       pheatmap(clustering_method = "ward.D2", 
+                                color = viridis(20, direction = -1, option = "B"),
+                                show_rownames = F,border_color = NA, fontsize = 8)
+                   })
 dev.off()
 
 save(heatmaps[[1]], file="h.png")
@@ -1561,42 +1561,42 @@ save(heatmaps,file = "data/processed/pheatmaps.Rdata")
 
 scaled_data <-
   data_tissue %>%
-             group_by(enssscg_id) %>%
-             mutate(scaled_value = tissue_exp / max(tissue_exp)) %>%
-             ungroup()
+  group_by(enssscg_id) %>%
+  mutate(scaled_value = tissue_exp / max(tissue_exp)) %>%
+  ungroup()
 
 
 
-             left_join(clustering, by = c("enssscg_id" = "gene"))
+left_join(clustering, by = c("enssscg_id" = "gene"))
 pdf("heatmaps_zscore_person_medoids_70.pdf")
 lapply(sort(unique(clustering$value)),
-         function(i) {
-           plot <-  %>%
-            # mutate(value = value+1) %>%
-             filter(value == i)  %>%
-             select(enssscg_id,tissue,scaled_value) %>%
-             spread(key=tissue, value = scaled_value) %>%
-             column_to_rownames("enssscg_id") %>% 
-             pheatmap(clustering_method = "ward.D2", 
-                      color = viridis(20, direction = -1, option = "B"),
-                      show_rownames = F,border_color = NA, fontsize = 8)
-         })
+       function(i) {
+         plot <-  %>%
+           # mutate(value = value+1) %>%
+           filter(value == i)  %>%
+           select(enssscg_id,tissue,scaled_value) %>%
+           spread(key=tissue, value = scaled_value) %>%
+           column_to_rownames("enssscg_id") %>% 
+           pheatmap(clustering_method = "ward.D2", 
+                    color = viridis(20, direction = -1, option = "B"),
+                    show_rownames = F,border_color = NA, fontsize = 8)
+       })
 dev.off()
 
 
 data_tissue %>%
-             left_join(clustering, by = c("enssscg_id" = "gene")) %>%
-            # mutate(value = value+1) %>%
-             filter(value == 67) %>%
-             group_by(enssscg_id) %>%
-             mutate(scaled_value = tissue_exp / max(tissue_exp)) %>%
-             ungroup() %>%
-             select(enssscg_id,tissue,scaled_value) %>%
-             spread(key=tissue, value = scaled_value) %>%
-             column_to_rownames("enssscg_id") %>% 
-             pheatmap(clustering_method = "ward.D2", 
-                      color = viridis(20, direction = -1, option = "B"),
-                      show_rownames = F,border_color = NA, fontsize = 8)
+  left_join(clustering, by = c("enssscg_id" = "gene")) %>%
+  # mutate(value = value+1) %>%
+  filter(value == 67) %>%
+  group_by(enssscg_id) %>%
+  mutate(scaled_value = tissue_exp / max(tissue_exp)) %>%
+  ungroup() %>%
+  select(enssscg_id,tissue,scaled_value) %>%
+  spread(key=tissue, value = scaled_value) %>%
+  column_to_rownames("enssscg_id") %>% 
+  pheatmap(clustering_method = "ward.D2", 
+           color = viridis(20, direction = -1, option = "B"),
+           show_rownames = F,border_color = NA, fontsize = 8)
 
 
 ```
@@ -1652,7 +1652,7 @@ keep_subclusters <-
   ungroup()
 
 plot_data_sub %>% 
-ggplot(aes(V1, V2, color = factor(cluster))) +
+  ggplot(aes(V1, V2, color = factor(cluster))) +
   geom_point(show.legend = F, size =0.5) +
   scale_color_manual(values = p) +
   coord_fixed() +
@@ -1690,7 +1690,7 @@ ggplot(aes(V1, V2, color = factor(cluster))) +
 #ggsave("results/UMAP/subcluster removal.pdf", width = 8, height = 8)  
 
 plot_data_sub %>% 
-ggplot(aes(V1, V2, color = factor(cluster))) +
+  ggplot(aes(V1, V2, color = factor(cluster))) +
   geom_point(show.legend = F, size =0.5) +
   scale_color_manual(values = p) +
   coord_fixed() +
@@ -1715,7 +1715,7 @@ new_centers <-
   left_join(cluster_annotation %>% select(cluster, Max)) %>% 
   distinct() %>% 
   mutate(Max = paste(cluster,Max))
-  
+
 plot_data_hulls <-
   plot_data_sub %>% 
   inner_join(keep_subclusters) %>%
@@ -1728,7 +1728,7 @@ plot_data_hulls <-
       st_coordinates(polygons) %>%
       as_tibble()
   })
-  
+
 plot_data_sub %>% 
   inner_join(keep_subclusters)  %>%  
   filter(sub_cluster != 0) %>% 
@@ -1741,7 +1741,7 @@ plot_data_sub %>%
                size = 0.4,
                inherit.aes = F,
                show.legend = F) +
-geom_point(show.legend = F, size =0.5, alpha = 0.2) +
+  geom_point(show.legend = F, size =0.5, alpha = 0.2) +
   scale_color_manual(values = p) +
   coord_fixed() +
   theme_bw() +
@@ -1753,10 +1753,10 @@ geom_point(show.legend = F, size =0.5, alpha = 0.2) +
              show.legend = F) +
   scale_fill_manual(values = p) +
   #geom_text(data = new_centers,aes(V1_mean,V2_mean, label=Max, color = as.factor(cluster)), 
-   #         size = 3,
-   #         show.legend = F) +
+  #         size = 3,
+  #         show.legend = F) +
   theme_void() 
-  
+
 
 # Cluster centers by dbscan
 plot_data <- 
@@ -1793,7 +1793,7 @@ selected_clusters <- cluster_annotation %>%  filter(Region =="Brain") %>% pull(c
 
 keep_subclusters <- 
   subcluster_count %>%
-    filter(sub_cluster != 0) %>% 
+  filter(sub_cluster != 0) %>% 
   top_n(1, n) %>% 
   slice(1) %>% 
   ungroup() 
@@ -1814,15 +1814,15 @@ plot_data_hulls <-
       st_coordinates(polygons) %>%
       as_tibble()
   })
-  
 
-  
+
+
 plot_data_sub %>% 
   inner_join(keep_subclusters)  %>%  
   filter(sub_cluster != 0) %>% 
   ggplot(aes(V1, V2)) +
   geom_point(show.legend = F, size =0.5, alpha = 0.2, color = "gray70") +
-
+  
   geom_polygon(data = plot_data_hulls,
                aes(X, Y, group = cluster),
                color = "#FFDD00",
@@ -1861,11 +1861,11 @@ umaps[[1]] %>%
   rename(gene = features)%>%
   left_join(clus) %>%
   left_join(clas) %>%
-      ggplot(aes(V1,V2, color = specificity_category )) +
-      geom_point() +
-      theme_minimal() +
-      scale_color_manual(values = gene_category_pal) +
-      coord_fixed()
+  ggplot(aes(V1,V2, color = specificity_category )) +
+  geom_point() +
+  theme_minimal() +
+  scale_color_manual(values = gene_category_pal) +
+  coord_fixed()
 
 
 # UMAP by tissue
@@ -1873,11 +1873,11 @@ umaps[[1]] %>%
   rename(gene = features)%>%
   left_join(clus) %>%
   left_join(tissue_info, by = c("gene" = "ensg_id")) %>%
-      ggplot(aes(V1,V2, color = enhanced_tissues)) +
-      geom_point(show.legend = F) +
-      theme_minimal() +
-      scale_color_manual(values = tissue_colors) +
-      coord_fixed()
+  ggplot(aes(V1,V2, color = enhanced_tissues)) +
+  geom_point(show.legend = F) +
+  theme_minimal() +
+  scale_color_manual(values = tissue_colors) +
+  coord_fixed()
 
 
 
@@ -1897,7 +1897,7 @@ clus_umap <- pcas[[1]]$scores %>%
 clus_umap %>% umap_plot(color_by = "density")
 
 #ggsave("results/human UMAP density.pdf", width = 5, height = 5)
-                        
+
 clus_umap %>%  
   left_join(clust_louvain$cluster, 
             by = c("features" = "gene")) %>%
@@ -2035,7 +2035,7 @@ plot_data %>%
                    position = "right") +
   theme(panel.background = element_blank(),
         panel.spacing = unit(0, "mm"),
-         plot.margin = unit(c(0,0,0,0), "mm"),
+        plot.margin = unit(c(0,0,0,0), "mm"),
         panel.grid =element_line(color="grey85"),
         axis.title = element_blank(),
         axis.ticks = element_blank(),
@@ -2053,8 +2053,8 @@ plot_data %>%
 load("data/processed/all_partitions.Rdata")
 
 final_clustering <-
-   all_partitions %>%
-   filter(id=="zscore pearson medoids 70")
+  all_partitions %>%
+  filter(id=="zscore pearson medoids 70")
 
 n_clusters <- final_clustering %>% pull(value) %>% unique() %>% length()
 
@@ -2161,9 +2161,9 @@ gene_description <- final_clustering %>%
   select(gene, cluster=value) %>% 
   left_join(ortholog_info %>% select(gene=enssscg_id,human_id = ensg_id)) %>% 
   left_join(geninfo %>% 
-  select(ensg_id,gene_name,gene_description), by = c("human_id" = "ensg_id")) %>% 
+              select(ensg_id,gene_name,gene_description), by = c("human_id" = "ensg_id")) %>% 
   left_join(gene_info %>% 
-  select(ensg_id,specificity_category,distribution_category,enhanced_tissues), by= c("gene" = "ensg_id")) %>% 
+              select(ensg_id,specificity_category,distribution_category,enhanced_tissues), by= c("gene" = "ensg_id")) %>% 
   arrange(cluster) 
 
 
@@ -2174,7 +2174,7 @@ names(all) <- c("cluster_info","GO_info","gene_info")
 write_xlsx(all, path = "annotation.xlsx")
 
 write.xlsx(cluster_info, file = "annotation.xlsx",
-      sheetName = "cluster_info", append = FALSE)
+           sheetName = "cluster_info", append = FALSE)
 write.xlsx(GO_info, file = "annotation.xlsx", 
            sheetName="GO_info", append=TRUE)
 write.xlsx(gene_description, file = "annotation.xlsx",
@@ -2193,7 +2193,7 @@ GOs <- GO_data@geneAnno%>% group_by(GO) %>% count() %>% filter(n<500) %>% filter
 GO_data@geneAnno <-
   GO_data@geneAnno %>% 
   filter(GO %in% GOs)
- 
+
 clustering <- 
   all_partitions %>%
   filter(id == "zscore pearson medoids 70") %>%
@@ -2295,7 +2295,7 @@ color_data <-
   mutate(tissue_exp = tissue_exp / max(tissue_exp, na.rm = T)) %>%
   ungroup() %>% 
   filter(tissue_exp > 0.1) %>% 
-   group_by(enssscg_id) %>%
+  group_by(enssscg_id) %>%
   mutate(tissue_exp = tissue_exp / sum(tissue_exp, na.rm = T)) %>%
   ungroup() 
 
@@ -2382,7 +2382,7 @@ dat %>%
            cluster_cols = F,
            cluster_rows = T,
            annotation_col = annotation_cluster,
-          annotation_row = annotation_organ,
+           annotation_row = annotation_organ,
            annotation_colors = ann)
 
 plot_data %>% 
@@ -2436,17 +2436,10 @@ umaps[[4]] %>%
             by = c("features" = "enssscg_id")) %>%
   ggplot(aes(V1,V2, color = color)) +
   geom_point(show.legend = T,
-             size = 1, alpha=0.5,  stroke = 0, shape=16, 
-             ) +
-  #geom_point(data = cluster_centers, 
-   #          inherit.aes = F, aes(V1_mean,V2_mean), 
-    #         color = "grey29", 
-     #        size = 4)+
+             size = 1, alpha=0.5,  stroke = 0, shape=16) +
   theme_simple_2 +
   scale_color_identity() +
-    coord_fixed()# +
-  #geom_text(data = cluster_centers, aes(V1_mean,V2_mean), inherit.aes = F,
-           # label = cluster_centers$Max)
+  coord_fixed()
 
 
 # UMAP colored by cluster
@@ -2455,7 +2448,7 @@ cluster_centers %>%
   geom_point(size = 4, show.legend = F)+ #, color = "grey29"
   geom_point(data = cluster_centers, 
              inherit.aes = F, aes(V1_mean,V2_mean, label=Max, color = as.factor(value))) + #, color = "gray90"
-    scale_color_manual(values = pal) +
+  scale_color_manual(values = pal) +
   scale_fill_manual(values = pal) +
   geom_text() +
   simple_theme 
